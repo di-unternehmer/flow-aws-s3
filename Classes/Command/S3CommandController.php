@@ -160,7 +160,8 @@ class S3CommandController extends CommandController
             $s3Client->putObject(array(
                 'Key' => $key,
                 'Bucket' => $bucket,
-                'Body' => fopen('file://' . realpath($file), 'rb')
+                'Body' => fopen('file://' . realpath($file), 'rb'),
+                'CacheControl' => 'max-age=31556926'
             ));
         } catch (\Exception $e) {
             $this->outputLine('Could not upload %s to %s::%s – %s', array($file, $bucket, $key, $e->getMessage()));

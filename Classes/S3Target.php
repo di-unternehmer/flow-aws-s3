@@ -211,6 +211,7 @@ class S3Target implements TargetInterface
                         'Bucket' => $this->bucketName,
                         'CopySource' => urlencode($storageBucketName . '/' . $storage->getKeyPrefix() . $object->getSha1()),
                         'ContentType' => $object->getMediaType(),
+                        'CacheControl' => 'max-age=31556926',
                         'MetadataDirective' => 'REPLACE',
                         'Key' => $objectName
                     );
@@ -280,6 +281,7 @@ class S3Target implements TargetInterface
                     'Bucket' => $this->bucketName,
                     'CopySource' => urlencode($sourceObjectArn),
                     'ContentType'=> $resource->getMediaType(),
+                    'CacheControl' => 'max-age=31556926',
                     'MetadataDirective' => 'REPLACE',
                     'Key' => $objectName
                 );
@@ -360,6 +362,7 @@ class S3Target implements TargetInterface
         $objectName = $this->keyPrefix . $relativeTargetPathAndFilename;
         $options = array(
             'params' => array(
+                'CacheControl' => 'max-age=31556926',
                 'ContentLength' => $metaData->getFileSize(),
                 'ContentType' => $metaData->getMediaType()
             )

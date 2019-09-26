@@ -217,6 +217,7 @@ class S3Storage implements WritableStorageInterface
             'Body' => $content,
             'ContentLength' => $resource->getFileSize(),
             'ContentType' => $resource->getMediaType(),
+            'CacheControl' => 'max-age=31556926',
             'Key' => $this->keyPrefix . $sha1Hash
         ));
 
@@ -264,6 +265,7 @@ class S3Storage implements WritableStorageInterface
         $this->s3Client->putObject(array(
             'Bucket' => $this->bucketName,
             'Body' => fopen($newSourcePathAndFilename, 'rb'),
+            'CacheControl' => 'max-age=31556926',
             'ContentLength' => $resource->getFileSize(),
             'ContentType' => $resource->getMediaType(),
             'Key' => $this->keyPrefix . $sha1Hash
@@ -413,6 +415,7 @@ class S3Storage implements WritableStorageInterface
             $this->s3Client->putObject([
                 'Bucket' => $this->bucketName,
                 'Body' => fopen($temporaryPathAndFilename, 'rb'),
+                'CacheControl' => 'max-age=31556926',
                 'ContentLength' => $resource->getFileSize(),
                 'ContentType' => $resource->getMediaType(),
                 'Key' => $objectName
